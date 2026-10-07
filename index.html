@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pause</title>
+<style>
+:root{--bg:#E7ECE8;--sf:#DAE2DD;--tx:#243033;--mu:#5F6D6F;--sg:#7FA38D;--st:#6F7B7D;--ink:#1E2A2D;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1E2A2D;--sf:#283539;--tx:#E8E3D8;--mu:#9AA7A6;--sg:#8FB09C}}
+:root[data-theme="dark"]{--bg:#1E2A2D;--sf:#283539;--tx:#E8E3D8;--mu:#9AA7A6;--sg:#8FB09C}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+#app{position:relative;max-width:440px;margin:0 auto;padding:20px 20px 48px}
+h1{font-size:28px;margin:12px 0 8px;font-weight:700}
+.sub{color:var(--mu);margin:0 0 4px}
+.card{background:var(--sf);border-radius:20px;padding:16px 18px;margin:12px 0}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.btn{display:block;width:100%;box-sizing:border-box;border:0;border-radius:16px;padding:15px;margin:10px 0;font:inherit;font-weight:600;text-align:center;text-decoration:none;color:var(--tx);background:var(--sf);cursor:pointer}
+.btn.p{background:var(--sg);color:var(--ink)}
+.btn.o{background:var(--st);color:#F1ECE3}
+.btn:disabled{opacity:.4;cursor:default}
+.lnk{background:none;border:0;color:var(--mu);text-decoration:underline;font:inherit;padding:8px 0;cursor:pointer;display:inline-block}
+:focus-visible{outline:2px solid var(--sg);outline-offset:2px}
+.cat{text-align:center;color:var(--mu);margin:36px 0 0}
+.stage{position:relative;width:220px;height:220px;margin:20px auto 12px;display:grid;place-items:center}
+.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:4}
+.rb{stroke:var(--st);stroke-opacity:.3}
+.rf{stroke:var(--tint,var(--sg));stroke-linecap:round}
+.ring .rf{stroke-dasharray:603;stroke-dashoffset:603;animation:ring var(--d) linear forwards}
+.orb{width:170px;height:170px;border-radius:50%;background:var(--tint,var(--sg));opacity:.88;animation:breathe var(--d) ease-in-out forwards}
+.bl{text-align:center;color:var(--mu);height:24px;margin:0 0 20px}
+@keyframes breathe{0%{transform:scale(.55)}40%{transform:scale(1)}100%{transform:scale(.55)}}
+@keyframes ring{to{stroke-dashoffset:0}}
+.after{opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .9s ease,transform .9s ease}
+.after.on{opacity:1;transform:none;pointer-events:auto}
+.ctx{text-align:center;margin:0 0 14px}
+.ctx.big{font-size:20px;margin:28px 0 20px}
+.alt{font-size:18px;margin:4px 0 0}
+.dr{width:150px;height:150px;transform:rotate(-90deg);display:block;margin:4px auto 8px}
+.dr circle{fill:none;stroke-width:10}
+.dn{text-align:center}
+.dn b{display:block;font-size:30px}
+.dn span{color:var(--mu)}
+label{display:block;font-size:14px;color:var(--mu);margin:10px 0 0}
+input,textarea{width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border:1.5px solid color-mix(in srgb,var(--st) 40%,transparent);border-radius:12px;background:var(--bg);color:var(--tx);font:inherit}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (prefers-reduced-motion:reduce){.orb{animation:none;transform:scale(.8)}.after{transition:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const KEY='pause.v1';
+const DEF={goal:{name:'Apple Watch',target:0},cats:{
+ food:{label:'Food delivery',tint:'#C98B6B',est:400,pot:1,sec:10,alts:['Make something simple at home','Eat a fruit and wait 20 minutes','Drink a glass of water first']},
+ groceries:{label:'Groceries',tint:'#C7AB6E',est:300,pot:1,sec:10,alts:['Check what is already in the fridge','Add it to a list and decide tomorrow']},
+ entertainment:{label:'Entertainment',tint:'#7F9DB8',est:0,pot:0,sec:10,alts:['Read 10 pages of your book','Five minutes of meditation','Take a short walk']}},log:[]};
+let mem=null,T=[];
+const merge=p=>{const d=structuredClone(DEF);if(p){d.goal={...d.goal,...p.goal};for(const k in d.cats)d.cats[k]={...d.cats[k],...((p.cats||{})[k])};d.log=p.log||[]}return d};
+const load=()=>{try{const r=localStorage.getItem(KEY);if(r)return merge(JSON.parse(r))}catch(e){}return mem?merge(mem):merge(null)};
+const S=load();
+const save=()=>{mem=JSON.parse(JSON.stringify(S));try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const root=document.getElementById('app'),$=s=>root.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const clearT=()=>{T.forEach(clearTimeout);T=[]};
+
+function stats(){
+ const wk=Date.now()-6048e5,w=S.log.filter(e=>e.out==='skip'||e.out==='alt');
+ const saved=w.reduce((a,e)=>a+(e.amt||0),0),moved=S.log.filter(e=>e.out==='moved').reduce((a,e)=>a+e.amt,0);
+ return{saved,pot:saved-moved,w7:w.filter(e=>e.t>=wk).length,o7:S.log.filter(e=>e.out==='open'&&e.t>=wk).length};
+}
+
+function pause(id,appName){
+ const c=S.cats[id],sec=Math.max(4,+c.sec||10),alts=c.alts||[];let cur=-1;
+ root.style.setProperty('--tint',c.tint);root.style.setProperty('--d',sec+'s');
+ root.innerHTML=`<p class="cat">${esc(c.label)}</p>
+ <div class="stage"><svg class="ring" viewBox="0 0 200 200"><circle class="rb" cx="100" cy="100" r="96"/><circle class="rf" cx="100" cy="100" r="96"/></svg><div class="orb"></div></div>
+ <p class="bl" id="bl">breathe in</p>
+ <div class="after" id="af">
+  <p class="ctx">${c.pot?`You'd probably have spent about ${inr(c.est)}. Skipping adds that to your ${esc(S.goal.name)} pot.`:'What were you hoping to get from this?'}</p>
+  ${alts.length?`<div class="card"><small>Instead, how about</small><p class="alt" id="alt"></p>${alts.length>1?'<button class="lnk" id="more">Show another</button>':''}</div>`:''}
+  ${alts.length?'<button class="btn p" id="ba">Do this instead</button>':''}
+  <button class="btn" id="bs">${c.pot?'Skip it':'Not now'}</button>
+  <button class="btn o" id="bo">Open anyway</button>
+ </div>`;
+ const nxt=()=>{if(!alts.length)return;let i;do{i=Math.floor(Math.random()*alts.length)}while(alts.length>1&&i===cur);cur=i;$('#alt').textContent=alts[i]};
+ nxt();
+ const done=out=>{
+  const amt=c.pot&&out!=='open'?+c.est:0;
+  S.log.push({t:Date.now(),cat:id,out,amt,app:appName||''});save();
+  let m=out==='open'?'Logged. Enjoy it, on purpose.':amt?`Good call. ${inr(amt)} added to your pot.`:'Good call. Win logged.';
+  if(out==='alt')m+=` Now: ${esc(alts[cur])}.`;
+  $('#af').innerHTML=`<p class="ctx big">${m}</p><a class="btn" href="#/">See dashboard</a>`;
+  if(out==='open'&&appName)setTimeout(()=>{location.href='shortcuts://run-shortcut?name='+encodeURIComponent('Allow '+appName)},500);
+ };
+ if($('#more'))$('#more').onclick=nxt;
+ if($('#ba'))$('#ba').onclick=()=>done('alt');
+ $('#bs').onclick=()=>done('skip');
+ $('#bo').onclick=()=>done('open');
+ T.push(setTimeout(()=>{$('#bl').textContent='breathe out'},sec*400));
+ T.push(setTimeout(()=>{$('#bl').textContent='';$('#af').classList.add('on')},sec*1000));
+}
+
+function dash(){
+ const st=stats(),t=+S.goal.target,p=t>0?Math.min(1,st.saved/t):0,C=2*Math.PI*70;
+ root.innerHTML=`<h1>Pause</h1><p class="sub">Small breaks, bigger savings.</p>
+ <div class="card"><svg class="dr" viewBox="0 0 180 180"><circle class="rb" cx="90" cy="90" r="70"/><circle class="rf" cx="90" cy="90" r="70" style="stroke-dasharray:${C};stroke-dashoffset:${C*(1-p)}"/></svg>
+  <div class="dn"><b>${inr(st.saved)}</b><span>${t>0?`of ${inr(t)} for your ${esc(S.goal.name)}`:'Set your goal in settings'}</span></div></div>
+ <div class="card"><div class="row"><span>Pot to move to your FD</span><b>${inr(st.pot)}</b></div><button class="btn" id="mv" ${st.pot>0?'':'disabled'}>Mark as moved</button></div>
+ <div class="card"><div class="row"><span>Last 7 days</span><b>${st.w7} wins, ${st.o7} opened anyway</b></div></div>
+ <h2 style="font-size:18px;margin:24px 0 0">Try a pause page</h2>
+ ${Object.entries(S.cats).map(([k,c])=>`<a class="btn" href="#/${k}">${esc(c.label)}</a>`).join('')}
+ <a class="lnk" href="#/settings">Settings</a>`;
+ $('#mv').onclick=()=>{S.log.push({t:Date.now(),out:'moved',amt:stats().pot});save();dash()};
+}
+
+function settings(){
+ root.innerHTML=`<h1>Settings</h1>
+ <div class="card"><label>Goal<input id="gn" value="${esc(S.goal.name)}"></label><label>Target amount (₹)<input id="gt" type="number" inputmode="numeric" value="${+S.goal.target||''}"></label></div>
+ ${Object.entries(S.cats).map(([id,c])=>`<div class="card"><b>${esc(c.label)}</b><div class="two"><label>Pause (seconds)<input data-c="${id}" data-f="sec" type="number" inputmode="numeric" value="${c.sec}"></label>${c.pot?`<label>Usual spend (₹)<input data-c="${id}" data-f="est" type="number" inputmode="numeric" value="${c.est}"></label>`:''}</div><label>Alternatives, one per line<textarea data-c="${id}" data-f="alts" rows="4">${esc(c.alts.join('\n'))}</textarea></label></div>`).join('')}
+ <button class="btn p" id="sv">Save changes</button>
+ <div class="card"><label>Backup or restore (JSON)<textarea id="js" rows="5">${esc(JSON.stringify(S))}</textarea></label><button class="btn" id="im">Restore from text</button></div>
+ <a class="lnk" href="#/">Back to dashboard</a>`;
+ $('#sv').onclick=e=>{
+  S.goal.name=$('#gn').value.trim()||'Goal';S.goal.target=+$('#gt').value||0;
+  root.querySelectorAll('[data-f]').forEach(el=>{const c=S.cats[el.dataset.c],f=el.dataset.f;c[f]=f==='alts'?el.value.split('\n').map(s=>s.trim()).filter(Boolean):(+el.value||c[f])});
+  save();e.target.textContent='Saved';
+ };
+ $('#im').onclick=e=>{try{Object.assign(S,merge(JSON.parse($('#js').value)));save();e.target.textContent='Restored'}catch(x){e.target.textContent='That JSON could not be read'}};
+}
+
+function route(){
+ clearT();root.removeAttribute('style');
+ const[h,q]=(location.hash.slice(2)||'').split('?'),a=new URLSearchParams(q||'').get('app');
+ if(S.cats[h])pause(h,a);else if(h==='settings')settings();else dash();
+ window.scrollTo(0,0);
+}
+addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>
