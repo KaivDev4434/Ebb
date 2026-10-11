@@ -1,0 +1,287 @@
+<style>
+#ebb-study { --ebb-bg:light-dark(#fffcf5,#102c31); --ebb-surface:light-dark(#ffffff,#193a40); --ebb-text:light-dark(#173f43,#f0faf8); --ebb-muted:light-dark(#52696c,#adc8c8); --ebb-soft:light-dark(#e0f7f0,#234c50); --ebb-action:light-dark(#007f78,#57dacc); --ebb-on-action:light-dark(#ffffff,#102c31); --ebb-bright:#27cdba; --ebb-highlight:#a3f2dc; --ebb-coral:#f58b73; --ebb-yellow:#ffd166; --ebb-line:light-dark(#cedfd9,#426067); color-scheme:light dark; }
+#ebb-study .ebb-stage { padding:24px 12px; display:flex; justify-content:center; }
+#ebb-study .ebb-phone { background:var(--ebb-bg); color:var(--ebb-text); width:min(100%,380px); min-height:644px; box-sizing:border-box; border-radius:30px; padding:25px 25px 24px; font:16px/1.5 ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif; box-shadow:0 18px 55px light-dark(#163b4220,#00000030); overflow:hidden; position:relative; }
+#ebb-study .ebb-phone * { box-sizing:border-box; }
+#ebb-study .ebb-top { display:flex; align-items:center; justify-content:space-between; min-height:28px; gap:12px; }
+#ebb-study .ebb-brand { font-size:25px; font-weight:650; letter-spacing:-1.1px; }
+#ebb-study .ebb-top-note { color:var(--ebb-muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+#ebb-study h2 { font:500 32px/1.13 ui-rounded,"SF Pro Rounded",system-ui,sans-serif; letter-spacing:-1.25px; margin:16px 0 9px; color:var(--ebb-text); }
+#ebb-study h2.ebb-title { min-height:73px;display:flex;align-items:center;justify-content:center; }
+#ebb-study p { margin:0; }
+#ebb-study .ebb-intro { text-align:center; margin-top:29px; }
+#ebb-study .ebb-label { display:inline-flex; gap:7px; align-items:center; font-size:13px; color:var(--ebb-muted); }
+#ebb-study .ebb-dot { width:7px;height:7px;border-radius:50%;background:var(--ebb-coral); }
+#ebb-study .ebb-sub { color:var(--ebb-muted); font-size:14px; }
+#ebb-study .ebb-visual { position:relative; height:240px; max-width:300px; margin:3px auto 0; }
+#ebb-study .ebb-visual svg { display:block; width:100%; height:100%; overflow:visible; }
+#ebb-study .ebb-cue { text-align:center; font-size:16px; letter-spacing:.02em; min-height:28px; }
+#ebb-study .ebb-progress { width:44px;height:3px;margin:12px auto 19px;background:var(--ebb-soft);border-radius:3px;overflow:hidden; }
+#ebb-study .ebb-progress span { display:block;width:100%;height:100%;background:var(--ebb-action);transform:scaleX(0);transform-origin:left; }
+#ebb-study .ebb-interaction { min-height:144px; }
+#ebb-study button { font:500 15px/1.3 ui-rounded,"SF Pro Rounded",system-ui,sans-serif; }
+#ebb-study .ebb-button { display:block; min-height:49px;width:100%;padding:14px 16px;border-radius:16px;border:0;background:var(--ebb-action);color:var(--ebb-on-action);transition:transform 120ms ease,background 120ms ease; }
+#ebb-study .ebb-button:active { transform:scale(.985); }
+#ebb-study .ebb-button.secondary { background:var(--ebb-soft);color:var(--ebb-text); }
+#ebb-study .ebb-button:disabled { opacity:.65; }
+#ebb-study .ebb-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+#ebb-study .ebb-quiet { background:none;border:0;color:var(--ebb-muted);padding:12px 8px;min-height:44px;display:block;margin:3px auto 0;text-decoration:underline;text-underline-offset:4px;font-size:13px; }
+#ebb-study .ebb-footer { color:var(--ebb-muted);font-size:12px;text-align:center;margin-top:17px; }
+#ebb-study .ebb-caption { text-align:center;font-size:13px;color:var(--ebb-muted);margin:11px 0 0; }
+#ebb-study .ebb-wait { color:var(--ebb-muted);text-align:center;font-size:14px;padding:18px 0; }
+#ebb-study .ebb-receipt { background:var(--ebb-soft);border-radius:18px;padding:15px 17px;text-align:center; }
+#ebb-study .ebb-receipt strong { font-weight:600;display:block;font-size:16px; }
+#ebb-study .ebb-receipt p { color:var(--ebb-muted);font-size:13px;margin-top:4px; }
+#ebb-study .ebb-alt { background:var(--ebb-surface);border:1px solid var(--ebb-line);border-radius:18px;padding:16px 17px;margin-bottom:10px; }
+#ebb-study .ebb-alt small { display:block;color:var(--ebb-muted);font-size:12px;margin-bottom:5px; }
+#ebb-study .ebb-alt p { font-size:19px;line-height:1.35;letter-spacing:-.25px; }
+#ebb-study .ebb-bottom-links { display:flex;justify-content:center;gap:14px; }
+#ebb-study .ebb-home { padding-top:23px; }
+#ebb-study .ebb-home h2 { margin:6px 0 7px;font-size:31px; }
+#ebb-study .ebb-kicker { color:var(--ebb-muted);font-size:13px; }
+#ebb-study .ebb-goal { margin-top:23px;padding:21px;border-radius:22px;background:var(--ebb-soft);position:relative; }
+#ebb-study .ebb-goal-title { display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px; }
+#ebb-study .ebb-goal-mark { width:27px;height:27px;border-radius:50%;background:var(--ebb-yellow);display:grid;place-items:center;color:#173f43;font-size:17px; }
+#ebb-study .ebb-money { font-size:34px;line-height:1.2;letter-spacing:-1.3px;margin:14px 0 0; }
+#ebb-study .ebb-money-sub { font-size:13px;color:var(--ebb-muted); }
+#ebb-study .ebb-meter { height:7px;border-radius:6px;background:light-dark(#173f4314,#f0faf81a);margin:17px 0 12px;overflow:hidden; }
+#ebb-study .ebb-meter > span { display:block;width:32%;height:100%;background:var(--ebb-action);border-radius:6px; }
+#ebb-study .ebb-plan-row { display:flex;justify-content:space-between;gap:12px;font-size:13px; }
+#ebb-study .ebb-plan-row strong { font-weight:600; }
+#ebb-study .ebb-home .ebb-button { margin-top:15px; }
+#ebb-study .ebb-section-title { display:flex;justify-content:space-between;align-items:center;margin:23px 0 10px;font-size:15px;font-weight:600; }
+#ebb-study .ebb-pause-tiles { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+#ebb-study .ebb-tile { text-align:left;background:var(--ebb-surface);color:var(--ebb-text);border:1px solid var(--ebb-line);border-radius:18px;min-height:91px;padding:14px; }
+#ebb-study .ebb-tile span { display:block;width:23px;height:6px;background:var(--ebb-coral);border-radius:6px;margin-bottom:13px; }
+#ebb-study .ebb-tile:nth-child(2) span { background:var(--ebb-bright); }
+#ebb-study .ebb-tile small { display:block;color:var(--ebb-muted);font-size:12px;margin-top:4px; }
+#ebb-study .ebb-nav { display:flex;gap:10px;justify-content:space-around;border-top:1px solid var(--ebb-line);margin-top:23px;padding-top:12px;color:var(--ebb-muted);font-size:13px; }
+#ebb-study .ebb-nav b { color:var(--ebb-text);font-weight:600; }
+#ebb-study[data-still="true"] .ebb-button { transition:none; }
+#ebb-study[data-still="true"] .ebb-button:active { transform:none; }
+#ebb-study[data-still="true"] .ebb-progress { visibility:hidden; }
+#ebb-study [hidden] { display:none!important; }
+@media (max-width:390px) { #ebb-study .ebb-stage{padding:14px 0;} #ebb-study .ebb-phone{padding:22px 18px;border-radius:24px;} #ebb-study .ebb-visual{height:220px;} }
+@media (prefers-reduced-motion:reduce) { #ebb-study .ebb-button{transition:none;} #ebb-study .ebb-button:active{transform:none;} }
+</style>
+<div id="ebb-study">
+  <div class="ebb-stage viz-dotted-background">
+    <section class="ebb-phone" aria-label="Ebb Coastal design and organic motion">
+      <header class="ebb-top"><span class="ebb-brand">ebb</span><span class="ebb-top-note">A little space</span></header>
+      <div class="ebb-pause-view">
+        <div class="ebb-intro">
+          <div class="ebb-label"><span class="ebb-dot" aria-hidden="true"></span><span>Food delivery</span></div>
+          <h2 class="ebb-title">Come back to you.</h2>
+          <p class="ebb-sub ebb-subtitle">One breath before your next choice.</p>
+        </div>
+        <div class="ebb-visual" role="img" aria-label="A soft organic form that slowly expands and releases during the pause">
+          <svg viewBox="0 0 320 260" aria-hidden="true">
+            <defs>
+              <radialGradient id="ebb-organic-fill" cx="28%" cy="23%" r="85%"><stop offset="0" style="stop-color:var(--ebb-highlight)"/><stop offset=".64" style="stop-color:var(--ebb-bright)"/><stop offset="1" style="stop-color:var(--ebb-action)"/></radialGradient>
+              <radialGradient id="ebb-organic-light" cx="35%" cy="25%" r="65%"><stop offset="0" stop-color="#ffffff" stop-opacity=".30"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+            </defs>
+            <ellipse class="ebb-shadow" cx="160" cy="228" rx="59" ry="5" style="fill:var(--ebb-action)" opacity=".08"/>
+            <path class="ebb-aura" style="fill:var(--ebb-bright)" opacity=".14"/>
+            <path class="ebb-form" fill="url(#ebb-organic-fill)"/>
+            <path class="ebb-light" fill="url(#ebb-organic-light)"/>
+          </svg>
+        </div>
+        <div class="ebb-cue" aria-live="polite">A moment, just for you.</div>
+        <div class="ebb-progress" aria-hidden="true"><span></span></div>
+        <div class="ebb-interaction"></div>
+        <p class="ebb-footer">Design preview · no activity is saved</p>
+      </div>
+      <div class="ebb-home" hidden>
+        <p class="ebb-kicker">A little more intention, today.</p>
+        <h2>Space for what matters.</h2>
+        <p class="ebb-sub">5 choices today · 3 not now, 2 continued</p>
+        <div class="ebb-goal">
+          <div class="ebb-goal-title"><span>Your Apple Watch</span><span class="ebb-goal-mark" aria-hidden="true">✦</span></div>
+          <div class="ebb-money">₹8,000</div>
+          <p class="ebb-money-sub">moved toward your ₹25,000 goal</p>
+          <div class="ebb-meter"><span></span></div>
+          <div class="ebb-plan-row"><span>Planned to move</span><strong>₹450</strong></div>
+          <button class="ebb-button cursor-interaction" type="button" data-action="transfer-preview">Record money moved</button>
+        </div>
+        <div class="ebb-section-title"><span>Your pauses</span><span class="ebb-kicker">Made for you</span></div>
+        <div class="ebb-pause-tiles">
+          <button class="ebb-tile cursor-interaction" type="button" data-action="pause"><span></span>Food delivery<small>A breath before ordering</small></button>
+          <button class="ebb-tile cursor-interaction" type="button" data-action="attention"><span></span>Entertainment<small>Make room for something else</small></button>
+        </div>
+        <div class="ebb-nav" aria-label="Navigation appearance"><b>Home</b><span>Pauses</span><span>Settings</span></div>
+        <p class="ebb-footer ebb-home-note" aria-live="polite">Illustrative figures · design preview</p>
+      </div>
+    </section>
+  </div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('ebb-study');
+  const phone = root.querySelector('.ebb-phone');
+  const ui = {
+    pause: root.querySelector('.ebb-pause-view'), home: root.querySelector('.ebb-home'),
+    title: root.querySelector('.ebb-title'), subtitle: root.querySelector('.ebb-subtitle'),
+    label: root.querySelector('.ebb-label span:last-child'), cue: root.querySelector('.ebb-cue'),
+    interaction: root.querySelector('.ebb-interaction'), form: root.querySelector('.ebb-form'),
+    aura: root.querySelector('.ebb-aura'), light: root.querySelector('.ebb-light'),
+    shadow: root.querySelector('.ebb-shadow'), progress: root.querySelector('.ebb-progress span')
+  };
+  const media = matchMedia('(prefers-reduced-motion: reduce)');
+  const state = { palette:'Coastal', appearance:'System', view:'Pause', duration:10, softness:4, still:false };
+  let frame=0, startTime=0, running=false, phase='', category='Food delivery', alternativeIndex=0, dismissed=false;
+  const alternatives=['Make something simple at home.','Have the fruit you picked up yesterday.','Make a cup of tea and take a little break.'];
+  const attentionAlternatives=['Read a few pages of the book by your bed.','Step outside for a little fresh air.','Spend five minutes on that personal project.'];
+  const ease = x => (1-Math.cos(Math.PI*x))/2;
+  const reduce = () => state.still || media.matches;
+  function shape(radius, drift, offset=0) {
+    const n=12, points=[];
+    for(let i=0;i<n;i++) {
+      const a=i/n*Math.PI*2;
+      const r=radius*(1 + state.softness/100*Math.sin(3*a+drift+offset) + state.softness/180*Math.cos(2*a-drift*.65+offset));
+      points.push([160+Math.cos(a)*r,128+Math.sin(a)*r*.98]);
+    }
+    const fmt=v=>v.toFixed(2);
+    let d=`M ${fmt(points[0][0])} ${fmt(points[0][1])}`;
+    for(let i=0;i<n;i++) {
+      const a=points[(i-1+n)%n], b=points[i], c=points[(i+1)%n], e=points[(i+2)%n];
+      d+=` C ${fmt(b[0]+(c[0]-a[0])/6)} ${fmt(b[1]+(c[1]-a[1])/6)}, ${fmt(c[0]-(e[0]-b[0])/6)} ${fmt(c[1]-(e[1]-b[1])/6)}, ${fmt(c[0])} ${fmt(c[1])}`;
+    }
+    return d+' Z';
+  }
+  function draw(p) {
+    const breath=reduce()?0.35:(p<=.4?ease(p/.4):1-ease((p-.4)/.6));
+    const drift=reduce()?0:ease(Math.min(1,p))*1.1;
+    const r=73+23*breath;
+    const d=shape(r,drift);
+    ui.form.setAttribute('d',d);ui.light.setAttribute('d',d);
+    ui.aura.setAttribute('d',shape(r+10,drift+.25,.7));
+    ui.aura.setAttribute('transform',`translate(${(3+breath*2).toFixed(2)} ${(-4-breath*2).toFixed(2)})`);
+    ui.shadow.setAttribute('rx',String(55+12*breath));
+    ui.progress.style.transform=`scaleX(${p})`;
+  }
+  function stop() { cancelAnimationFrame(frame); frame=0; running=false; }
+  function reveal() {
+    if(!reduce()) ui.interaction.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:380,easing:'cubic-bezier(.22,1,.36,1)'});
+  }
+  function button(label,action,secondary=false) {
+    return `<button type="button" class="ebb-button ${secondary?'secondary':''} cursor-interaction" data-action="${action}">${label}</button>`;
+  }
+  function quiet(label,action) { return `<button type="button" class="ebb-quiet cursor-interaction" data-action="${action}">${label}</button>`; }
+  function ready() {
+    stop();dismissed=false;phase='ready';
+    ui.label.textContent=category;
+    ui.title.textContent='Come back to you.';ui.subtitle.textContent='One breath before your next choice.';
+    ui.cue.textContent='A moment, just for you.';
+    ui.interaction.innerHTML=button(`Play ${state.duration}-second pause`,'start')+'<p class="ebb-caption">Breathe along, or simply watch.</p>'+quiet('See the Coastal home screen','home');
+    draw(0);
+  }
+  function decided() {
+    stop();phase='deciding';draw(1);
+    ui.title.textContent='Your choice.';
+    ui.subtitle.textContent=category==='Food delivery'?'Still feel like ordering?':'Still want to continue?';
+    ui.cue.textContent='Choose what feels right for you.';
+    ui.interaction.innerHTML='<div class="ebb-actions">'+button('Not now','dismiss')+button('Continue','continue',true)+'</div>'+quiet('Try something else','alternatives');
+    reveal();
+  }
+  function tick(now) {
+    if(!running)return;
+    const p=Math.min(1,Math.max(0,(now-startTime)/(state.duration*1000)));
+    draw(p);
+    const next=p<.4?'Breathe in':'Breathe out';
+    if(phase!==next) {phase=next;ui.cue.textContent=next;}
+    if(reduce()) ui.interaction.querySelector('.ebb-wait').textContent=`${Math.ceil(state.duration*(1-p))} seconds of space`;
+    if(p>=1){decided();return;}
+    frame=requestAnimationFrame(tick);
+  }
+  function start() {
+    stop();dismissed=false;running=true;startTime=performance.now();phase='';
+    ui.title.textContent='Come back to you.';ui.subtitle.textContent='Breathe along, or simply watch.';
+    ui.interaction.innerHTML='<p class="ebb-wait">Nothing to do for a moment.</p>'+quiet('Stop preview','reset');
+    frame=requestAnimationFrame(tick);
+  }
+  function alternative() {
+    const list=category==='Food delivery'?alternatives:attentionAlternatives;
+    ui.cue.textContent='Make room for something you chose.';
+    ui.interaction.innerHTML='<div class="ebb-alt"><small>Instead, how about</small><p></p></div>'+button('Choose this','choose')+'<div class="ebb-bottom-links">'+quiet('Show another','another')+quiet(dismissed?'Done':'Back',dismissed?'receipt':'back')+'</div>';
+    ui.interaction.querySelector('.ebb-alt p').textContent=list[alternativeIndex%list.length];
+    reveal();
+  }
+  function receipt(chosen=false) {
+    phase='resolved';
+    ui.title.textContent=chosen?'A little room.':'Space, made.';
+    ui.subtitle.textContent='Small choices can feel good.';
+    ui.cue.textContent='You can go at your own pace.';
+    ui.interaction.innerHTML='<div class="ebb-receipt"><strong>'+(category==='Food delivery'?'₹150 added to your plan':'Choice recorded')+'</strong><p>'+(category==='Food delivery'?'Estimated spending avoided: ₹400':'A moment to choose deliberately.')+'</p></div><div class="ebb-bottom-links">'+quiet('Undo','back')+quiet('Replay','reset')+quiet('Home','home')+'</div>';
+    reveal();
+  }
+  function saveState() {
+    if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{design:'Ebb organic motion',palette:state.palette,duration:state.duration,softness:state.softness,still:state.still},privateContent:{...state}}).catch(()=>{});
+  }
+  function render() {
+    const palettes={
+      Coastal:['#27cdba','#a3f2dc','light-dark(#007f78,#57dacc)','#f58b73','#ffd166','light-dark(#e0f7f0,#234c50)'],
+      Orchard:['#7ace84','#d5f3a8','light-dark(#317444,#a0e4a3)','#f7a18b','#f7d16b','light-dark(#edf6e2,#294a37)'],
+      Playful:['#9c9aee','#d9d6ff','light-dark(#6553a5,#c9b9ff)','#ffb48e','#8fd7bf','light-dark(#f0ecfc,#373954)']
+    };
+    const v=palettes[state.palette]||palettes.Coastal;
+    ['--ebb-bright','--ebb-highlight','--ebb-action','--ebb-coral','--ebb-yellow','--ebb-soft'].forEach((k,i)=>root.style.setProperty(k,v[i]));
+    root.style.colorScheme=state.appearance==='System'?'light dark':state.appearance.toLowerCase();
+    root.dataset.still=String(reduce());
+    ui.pause.hidden=state.view==='Home';ui.home.hidden=state.view!=='Home';
+    if(state.view==='Home')stop();else if(!running)ready();
+    if(running)draw(Math.min(1,(performance.now()-startTime)/(state.duration*1000)));
+  }
+  function restore(value) {
+    const s=value?.privateContent;
+    if(!s)return;
+    const before=JSON.stringify(state);
+    if(['Coastal','Orchard','Playful'].includes(s.palette))state.palette=s.palette;
+    if(['System','Light','Dark'].includes(s.appearance))state.appearance=s.appearance;
+    if(['Pause','Home'].includes(s.view))state.view=s.view;
+    if(typeof s.duration==='number'&&s.duration>=8&&s.duration<=14)state.duration=s.duration;
+    if(typeof s.softness==='number'&&s.softness>=0&&s.softness<=7)state.softness=s.softness;
+    if(typeof s.still==='boolean')state.still=s.still;
+    if(JSON.stringify(state)!==before){stop();render();}
+  }
+  root.addEventListener('click',event=>{
+    const action=event.target.closest('[data-action]')?.dataset.action;
+    if(!action)return;
+    if(action==='start')start();
+    else if(action==='reset')ready();
+    else if(action==='dismiss'){dismissed=true;alternative();}
+    else if(action==='alternatives')alternative();
+    else if(action==='another'){alternativeIndex++;alternative();}
+    else if(action==='choose'||action==='receipt')receipt(action==='choose');
+    else if(action==='back'){dismissed=false;decided();}
+    else if(action==='continue'){
+      ui.title.textContent='Go with intention.';ui.subtitle.textContent='You made a little space to decide.';ui.cue.textContent='Your choice is yours.';
+      ui.interaction.innerHTML='<div class="ebb-receipt"><strong>Continued</strong><p>In Ebb, your configured return action goes here.</p></div>'+quiet('Replay the pause','reset');reveal();
+    }
+    else if(action==='home'){state.view='Home';render();saveState();}
+    else if(action==='pause'||action==='attention'){category=action==='pause'?'Food delivery':'Entertainment';state.view='Pause';render();saveState();}
+    else if(action==='transfer-preview')root.querySelector('.ebb-home-note').textContent='Preview only · no transfer or record is made';
+  });
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(frame);
+    else if(running)frame=requestAnimationFrame(tick);
+  });
+  media.addEventListener('change',()=>{
+    root.dataset.still=String(reduce());
+    root.getAnimations?.({subtree:true}).forEach(a=>a.cancel());
+    if(!running)draw(0);
+  });
+  window.addEventListener('openai:set_globals',event=>{
+    if(event.detail?.globals?.widgetState)restore(event.detail.globals.widgetState);
+  });
+  render();restore(window.openai?.widgetState);
+  if(globalThis.Tweak){
+    const tweak=new Tweak({container:phone,onChange:()=>{stop();render();saveState();}});
+    tweak.addSelect(state,'view',{label:'Screen',options:['Pause','Home']});
+    tweak.addSelect(state,'palette',{label:'Palette',options:['Coastal','Orchard','Playful']});
+    tweak.addSelect(state,'appearance',{label:'Appearance',options:['System','Light','Dark']});
+    tweak.addSlider(state,'softness',{label:'Organic contour',min:0,max:7,step:.5});
+    tweak.addSlider(state,'duration',{label:'Breath duration',min:8,max:14,step:1,unit:'s'});
+    tweak.addToggle(state,'still',{label:'Still / reduced motion'});
+  }
+})();
+</script>
